@@ -1,0 +1,15 @@
+[Unit]
+Description=LeonBos Backend Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/leonbos
+Environment=NODE_ENV=production
+Environment=LEONBOS_DATA_DIR=/var/lib/leonbos
+ExecStart=/bin/bash /opt/leonbos/后端/start.sh
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

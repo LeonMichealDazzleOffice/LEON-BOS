@@ -1,0 +1,15 @@
+node_modules/
+release/
+release-random-port/
+
+database/*.db
+src/database/*.db
+*.bak
+download.png
+
+*.log
+.DS_Store
+Thumbs.db
+
+unins000.dat
+unins000.exe

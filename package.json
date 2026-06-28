@@ -1,0 +1,73 @@
+{
+  "name": "leonbos",
+  "version": "1.0.1",
+  "description": "LeonBos - Professional Anti-Detect Browser",
+  "main": "src/desktop/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "ui": "node src/ui/server.js",
+    "dev": "node src/ui/server.js",
+    "backend": "node 后端/server.js",
+    "desktop": "electron .",
+    "desktop:dev": "electron .",
+    "pack:win": "electron-builder --win --dir",
+    "dist:win": "electron-builder --win"
+  },
+  "keywords": [
+    "browser",
+    "fingerprint",
+    "antidetect",
+    "privacy"
+  ],
+  "author": "LeonCode",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "chrome-remote-interface": "^0.34.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "sql.js": "^1.10.3",
+    "user-agents": "^1.1.0",
+    "uuid": "^9.0.0",
+    "ws": "^8.20.0"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.leoncode.leonbos",
+    "productName": "LeonBos",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "database/schema.sql",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "src/desktop/icons",
+        "to": "icons"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "src/desktop/icons/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LeonBos"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
