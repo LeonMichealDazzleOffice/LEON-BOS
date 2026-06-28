@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeonBos 1.0.1 · 企业级反指纹浏览器</title>
+    <link rel="icon" type="image/png" href="/logo/leonbos-logo.png">
+    <link rel="stylesheet" href="/plus.css">
+</head>
+<body>
+    <div id="motion-orb-layer" aria-hidden="true"></div>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <img class="brand-logo" src="/logo/leonbos-logo.png" alt="LeonBos">
+                <div class="brand-copy">
+                    <div class="brand-name">LeonBos</div>
+                    <div class="brand-version">Version 1.0.1</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <button class="nav-item active" data-view="assets">资产管理</button>
+                <button class="nav-item" data-view="regions">地区配置</button>
+                <button class="nav-item" data-view="browser">浏览器配置</button>
+                <button class="nav-item" data-view="network">网络配置</button>
+                <button class="nav-item" data-view="integrations">MCP / 插件</button>
+                <button class="nav-item" data-view="logs">活动审计</button>
+            </nav>
+        </aside>
+
+        <main class="main-panel">
+            <header class="topbar">
+                <div class="drag-zone" data-drag-zone>
+                    <div class="topbar-title-wrap">
+                        <div class="topbar-title">运营控制台</div>
+                        <div class="topbar-subtitle">浏览器资产 · 指纹模板 · 代理网络 · 会话控制</div>
+                    </div>
+                </div>
+                <div class="topbar-actions no-drag">
+                    <button class="btn btn-secondary" data-action="show-create">单个创建</button>
+                    <button class="btn btn-primary" data-action="show-batch-create">批量创建</button>
+                    <button class="btn btn-secondary" data-action="show-settings">设置</button>
+                </div>
+            </header>
+
+            <section class="summary-strip no-drag" id="summary-strip">
+                <div class="summary-card">
+                    <span class="summary-label">资产总数</span>
+                    <strong id="stat-total-assets">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">在线会话</span>
+                    <strong id="stat-active-assets">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">关键告警</span>
+                    <strong id="stat-alert-assets">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span class="summary-label">最近活动</span>
+                    <strong id="stat-last-activity">-</strong>
+                </div>
+            </section>
+
+            <section class="workspace no-drag">
+                <div class="table-toolbar">
+                    <div class="toolbar-left">
+                        <input id="search-input" type="search" placeholder="搜索环境名称、ID、代理、UA、时区、语言">
+                        <select id="status-filter">
+                            <option value="all">全部状态</option>
+                            <option value="normal">正常</option>
+                            <option value="checking">待检查</option>
+                            <option value="warmup">预热</option>
+                            <option value="paused">离线</option>
+                            <option value="blocked">异常</option>
+                        </select>
+                        <button class="btn btn-secondary" data-action="refresh">刷新</button>
+                    </div>
+                    <div class="toolbar-right">
+                        <span class="hint-chip">双击行启动</span>
+                        <span class="hint-chip">⚡ 代理测速</span>
+                    </div>
+                </div>
+
+                <div class="table-container" id="table-container">
+                    <table class="assets-table">
+                        <thead>
+                            <tr>
+                                <th class="check-col"><input type="checkbox" id="select-all"></th>
+                                <th>环境</th>
+                                <th>指纹</th>
+                                <th>代理</th>
+                                <th>状态</th>
+                                <th class="action-col">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="profiles-tbody">
+                            <tr class="loading-row"><td colspan="6">正在加载环境数据...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="bulk-bar" class="bulk-bar" aria-hidden="true">
+        <div class="bulk-meta">已选择 <strong id="bulk-count">0</strong> 个环境</div>
+        <div class="bulk-actions">
+            <button class="btn btn-success" data-action="bulk-launch">一键打开选中环境</button>
+            <button class="btn btn-warning" data-action="bulk-close">一键关闭</button>
+            <button class="btn btn-secondary" data-action="batch-bind">批量绑定</button>
+            <button class="btn btn-secondary" data-action="bulk-tag">批量打标签</button>
+            <button class="btn btn-danger" data-action="bulk-delete">批量删除</button>
+            <button class="btn btn-secondary" data-action="clear-selection">取消</button>
+        </div>
+    </div>
+
+    <div id="modal-layer" class="modal-layer" aria-hidden="true">
+        <div class="modal-overlay" data-dismiss-modal></div>
+        <section class="modal-panel" id="modal-panel">
+            <header class="modal-header">
+                <h2 id="modal-title">新建环境</h2>
+                <button class="icon-btn" data-action="close-modal">×</button>
+            </header>
+            <div class="modal-body" id="modal-body"></div>
+            <footer class="modal-footer" id="modal-footer"></footer>
+        </section>
+    </div>
+
+    <div id="license-modal" class="modal-layer" aria-hidden="true">
+        <div class="modal-overlay" data-license-dismiss></div>
+        <section class="modal-panel">
+            <header class="modal-header">
+                <h2>授权密钥激活</h2>
+                <button class="icon-btn" data-license-dismiss>×</button>
+            </header>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>输入授权密钥</label>
+                    <input type="text" id="license-key-input" placeholder="AAAA-BBBB-CCCC-DDDD">
+                </div>
+                <div class="form-group muted" id="license-modal-hint">免费额度已达上限，输入密钥后即可继续创建环境。</div>
+            </div>
+            <footer class="modal-footer">
+                <button class="btn btn-secondary" data-license-dismiss>取消</button>
+                <button class="btn btn-primary" id="license-activate-btn">确认激活</button>
+            </footer>
+        </section>
+    </div>
+
+    <script src="/api-config.js"></script>
+    <script src="/plus.js"></script>
+    <script src="/integrations.js"></script>
+    <script src="/motion.js"></script>
+</body>
+</html>

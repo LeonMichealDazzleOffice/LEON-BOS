@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于 LeonBos</title>
+    <link rel="icon" type="image/png" href="/logo/leonbos-logo.png">
+    <style>
+        :root {
+            --bg: #071725;
+            --panel: #0c1f2f;
+            --panel-2: #10283b;
+            --text: #effcff;
+            --muted: #8fb0bd;
+            --accent: #10d6af;
+            --accent-2: #0260bb;
+            --border: rgba(15, 175, 180, 0.22);
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at top, rgba(15, 175, 180, 0.14), transparent 35%), linear-gradient(180deg, #071725, #08101a 70%);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        .wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 48px 24px 64px;
+        }
+        .hero {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(16, 214, 175, 0.08), rgba(2, 96, 187, 0.10)), rgba(12, 31, 47, 0.92);
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+        }
+        .logo {
+            width: 96px;
+            height: 96px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            flex: 0 0 auto;
+        }
+        .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        h1 {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+        }
+        .subtitle {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 720px;
+        }
+        .grid {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+        .card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: rgba(12, 31, 47, 0.9);
+        }
+        .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .14em; }
+        .value { margin-top: 8px; font-size: 20px; font-weight: 700; }
+        .section {
+            margin-top: 18px;
+            padding: 22px 24px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: rgba(12, 31, 47, 0.88);
+        }
+        .section h2 { margin: 0 0 10px; font-size: 18px; }
+        .section p, .section li { color: var(--muted); line-height: 1.8; }
+        ul { margin: 12px 0 0 20px; padding: 0; }
+        .footer { margin-top: 22px; color: var(--muted); font-size: 13px; }
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
+            color: var(--text);
+            font-size: 13px;
+            margin-top: 12px;
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+        @media (max-width: 720px) {
+            .hero { flex-direction: column; align-items: flex-start; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <section class="hero">
+            <div class="logo"><img src="/logo/leonbos-logo.png" alt="LeonBos logo"></div>
+            <div>
+                <h1>LeonBos</h1>
+                <div class="subtitle">企业级反指纹浏览器管理平台，面向多账号运营、配置管理、会话控制和资产编排场景。</div>
+                <div class="pill"><span class="dot"></span><span id="app-version">Version 1.0.1</span></div>
+            </div>
+        </section>
+
+        <div class="grid">
+            <div class="card">
+                <div class="label">产品定位</div>
+                <div class="value">Enterprise Control</div>
+            </div>
+            <div class="card">
+                <div class="label">品牌资产</div>
+                <div class="value">Official Release</div>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2>正式版说明</h2>
+            <p>当前版本已统一品牌视觉、窗口标题、favicon 与发布说明，适合作为正式发布物料基础。</p>
+            <ul>
+                <li>统一使用企业化蓝绿主视觉与正式 logo。</li>
+                <li>关于页作为产品介绍与版本信息入口。</li>
+                <li>可继续扩展为桌面壳、安装包和自动更新发布页。</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>发布信息</h2>
+            <p>产品名：LeonBos</p>
+            <p>版本：1.0.1</p>
+            <p>定位：企业级反指纹浏览器控制台</p>
+        </section>
+
+        <div class="footer">LeonBos · Official Release Materials</div>
+    </div>
+</body>
+</html>
