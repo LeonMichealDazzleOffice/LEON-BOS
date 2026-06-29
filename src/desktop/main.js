@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Menu, Tray, shell, dialog, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const WebUIServer = require('../../后端/server');
+const WebUIServer = require('../../backend/server');
 
 const APP_NAME = 'LeonBos';
 const APP_VERSION = require('../../package.json').version;

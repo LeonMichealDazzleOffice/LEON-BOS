@@ -3,7 +3,7 @@
  * Starts Web UI server and opens browser window
  */
 
-const WebUIServer = require('../后端/server');
+const WebUIServer = require('../backend/server');
 const { spawn } = require('child_process');
 const path = require('path');
 

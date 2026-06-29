@@ -1,0 +1,7 @@
+{
+  "name": "leonbos-frontend",
+  "version": "1.0.1",
+  "private": true,
+  "description": "LeonBos frontend static assets",
+  "main": "public/index.html"
+}

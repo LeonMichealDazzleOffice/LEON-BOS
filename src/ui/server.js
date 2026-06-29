@@ -16,6 +16,8 @@ class WebUIServer {
         this.port = Number.isFinite(parsedPort) ? parsedPort : 0;
         this.appName = 'LeonBos';
         this.appVersion = require('../../package.json').version;
+        this.frontendPublicDir = path.join(__dirname, '..', '..', 'frontend', 'public');
+        this.legacyPublicDir = path.join(__dirname, 'public');
         this.db = new Database();
         this.generator = new FingerprintGenerator();
         this.launcher = null;
@@ -59,7 +61,11 @@ class WebUIServer {
     setupMiddleware() {
         this.app.use(cors());
         this.app.use(express.json());
-        this.app.use(express.static(path.join(__dirname, 'public')));
+        this.app.use(express.static(this.resolvePublicDir()));
+    }
+
+    resolvePublicDir() {
+        return require('fs').existsSync(this.frontendPublicDir) ? this.frontendPublicDir : this.legacyPublicDir;
     }
 
     getAppManifest() {
@@ -899,12 +905,12 @@ class WebUIServer {
         });
 
         this.app.get('/about', (req, res) => {
-            res.sendFile(path.join(__dirname, 'public', 'about.html'));
+            res.sendFile(path.join(this.resolvePublicDir(), 'about.html'));
         });
 
         // Serve main UI
         this.app.get('/', (req, res) => {
-            res.sendFile(path.join(__dirname, '..', 'ui', 'public', 'index.html'));
+            res.sendFile(path.join(this.resolvePublicDir(), 'index.html'));
         });
     }
 
