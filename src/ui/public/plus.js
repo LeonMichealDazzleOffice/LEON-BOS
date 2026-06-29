@@ -187,6 +187,10 @@
         return window.LEONBOS_API_BASE || '';
     }
 
+    function licenseEndpoint() {
+        return window.LEONBOS_LICENSE_ENDPOINT || `${apiBase()}/api/auth/activate`;
+    }
+
     function isOkResponse(payload) {
         return Boolean(payload && (payload.success === true || payload.status === 'success'));
     }
@@ -665,15 +669,21 @@
             return;
         }
         try {
-            const result = await api('/api/auth/activate', { method: 'POST', body: JSON.stringify({ key }) });
+            const response = await fetch(licenseEndpoint(), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ key })
+            });
+            const result = (await response.text()).trim();
+            if (!response.ok || result !== 'succes') throw new Error('bad');
             closeLicenseModal();
-            toast(result.message || '激活成功', 'success');
+            toast('激活成功', 'success');
             await loadProfiles();
             await runPendingCreateAction();
         } catch (error) {
             const hint = byId('license-modal-hint');
-            if (hint) hint.textContent = error.message || '激活失败';
-            toast(error.message || '激活失败', 'error');
+            if (hint) hint.textContent = 'bad';
+            toast('bad', 'error');
         }
     }
 
