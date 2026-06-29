@@ -1,1 +1,1 @@
-window.LEONBOS_API_BASE = window.LEONBOS_API_BASE || '';
+window.LEONBOS_API_BASE = window.LEONBOS_API_BASE || 'http://192.168.0.105:3000';

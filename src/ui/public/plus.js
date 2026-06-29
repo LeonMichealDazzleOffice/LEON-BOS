@@ -187,6 +187,14 @@
         return window.LEONBOS_API_BASE || '';
     }
 
+    function isOkResponse(payload) {
+        return Boolean(payload && (payload.success === true || payload.status === 'success'));
+    }
+
+    function isBadResponse(payload) {
+        return Boolean(payload && (payload.success === false || payload.status === 'bad'));
+    }
+
     function setView(view) {
         state.currentView = view;
         qsa('.nav-item').forEach(item => item.classList.toggle('active', item.dataset.view === view));
@@ -220,7 +228,7 @@
     async function api(path, options = {}) {
         const response = await fetch(`${apiBase()}${path}`, { headers: { 'Content-Type': 'application/json' }, ...options });
         const json = await response.json();
-        if (!response.ok || json.success === false) throw new Error(json.error || `HTTP ${response.status}`);
+        if (!response.ok || isBadResponse(json)) throw new Error(json.error || json.message || `HTTP ${response.status}`);
         return json.data ?? json;
     }
 
@@ -885,7 +893,7 @@
     }
 
     async function createProfileWithActivation(body, retryAction) {
-        const response = await fetch('/api/profiles', {
+        const response = await fetch(`${apiBase()}/api/profiles`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
@@ -896,12 +904,12 @@
             openLicenseModal(result.message);
             return null;
         }
-        if (!result.success) throw new Error(result.error || result.message || '创建失败');
+        if (!isOkResponse(result)) throw new Error(result.error || result.message || '创建失败');
         return result.data;
     }
 
     async function createProfileBatchWithActivation(body, retryAction) {
-        const response = await fetch('/api/profiles/batch', {
+        const response = await fetch(`${apiBase()}/api/profiles/batch`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
@@ -912,7 +920,7 @@
             openLicenseModal(result.message);
             return null;
         }
-        if (!result.success) throw new Error(result.error || result.message || '创建失败');
+        if (!isOkResponse(result)) throw new Error(result.error || result.message || '创建失败');
         return result.data;
     }
 
